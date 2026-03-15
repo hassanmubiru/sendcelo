@@ -311,7 +311,7 @@ Phase 1 (MVP):
 - [ ] Testnet deployment
 
 Phase 2 (Production):
-- [ ] Yield farming optimization
+- [x] Yield farming optimization
 - [ ] Microfinance UI
 - [ ] Mainnet launch
 
