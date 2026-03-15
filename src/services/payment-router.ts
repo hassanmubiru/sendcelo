@@ -56,11 +56,11 @@ export class PaymentRouter {
     logger.info({ request }, 'Processing remittance');
 
     // Resolve recipient address
-    let recipientAddress = request.recipientAddress;
+    let recipientAddress = request.recipientAddress ?? undefined;
     if (!recipientAddress && request.recipientPhone) {
-      recipientAddress = await this.phoneAddressingService.resolvePhoneToAddress(
+      recipientAddress = (await this.phoneAddressingService.resolvePhoneToAddress(
         request.recipientPhone
-      );
+      )) ?? undefined;
       if (!recipientAddress) {
         throw new Error(`No address found for phone ${request.recipientPhone}`);
       }

@@ -3,7 +3,7 @@ import Decimal from 'decimal.js';
 import logger from '../utils/logger';
 
 interface ExchangeRateData {
-  [key: string]: number;
+  [key: string]: string;
 }
 
 /**

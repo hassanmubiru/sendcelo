@@ -135,7 +135,7 @@ export class YieldFarmingService {
   ): Promise<string> {
     const idle = new Decimal(idleAmount);
 
-    if (idle.isLessThan(params.minIdleThreshold)) {
+    if (idle.lessThan(params.minIdleThreshold)) {
       logger.info(
         { idle: idle.toString(), threshold: params.minIdleThreshold },
         'Idle amount below threshold, skipping optimization'
