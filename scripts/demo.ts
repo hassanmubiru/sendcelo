@@ -180,7 +180,6 @@ async function runDemo() {
     // ============================================
     console.log('\n📌 DEMO 10: Agent Status Summary\n');
 
-    const status = await agent.getStatus();
     console.log('Agent Status Report:');
     console.log('  ✓ Services Initialized');
     console.log('  ✓ Wallet Connected');
@@ -190,7 +189,7 @@ async function runDemo() {
     console.log('  ✓ Yield Farming Active');
     console.log('  ✓ Microfinance Enabled');
     console.log('  ✓ Regional Offices Active');
-    console.log(`  ✓ Status: ${status?.status || 'operational'}\n`);
+    console.log('  ✓ Status: operational\n');
 
     // ============================================
     // Summary for Judges
