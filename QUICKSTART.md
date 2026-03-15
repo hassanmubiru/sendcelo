@@ -28,7 +28,7 @@ AGENT_ADDRESS=0x{your_wallet_address}
 
 **Getting testnet CELO/cUSD:**
 1. Generate a wallet private key (or import existing)
-2. Visit https://alfajores-faucet.celo-testnet.org/
+2. Visit https://faucet.sepolia.celo-testnet.org/
 3. Paste your address to get free testnet funds
 
 ### 3. Build the Project
@@ -75,7 +75,7 @@ npm test -- --watch  # Watch mode testing
 npm test -- --coverage  # Coverage report
 
 # Deployment (Phase-specific)
-bash scripts/deploy.sh alfajores  # Deploy to testnet
+bash scripts/deploy.sh sepolia  # Deploy to Celo Sepolia testnet
 bash scripts/deploy.sh mainnet     # Deploy to mainnet (requires AGENT_PRIVATE_KEY)
 ```
 
@@ -105,7 +105,7 @@ bash scripts/deploy.sh mainnet     # Deploy to mainnet (requires AGENT_PRIVATE_K
 - **Never commit `.env` with real private keys**
 - Use `.env.example` as template for new installations
 - For production, use environment management tools (AWS Secrets Manager, HashiCorp Vault, etc.)
-- Always test on testnet (Alfajores) first before mainnet
+- Always test on testnet (Celo Sepolia) first before mainnet
 
 ## 📱 Mobile App Integration
 
@@ -192,7 +192,7 @@ console.log(offices); // Shows office details, metrics, transactions
 ## ✨ Next Steps
 
 1. **Fund Testnet Wallet**: Get cUSD from faucet
-2. **Deploy to Alfajores**: Run `bash scripts/deploy.sh alfajores`
+2. **Deploy to Celo Sepolia**: Run `bash scripts/deploy.sh sepolia`
 3. **Test Remittances**: Try sending test transactions
 4. **Monitor Yield Farming**: Check idle fund optimization
 5. **Prepare Mainnet**: Follow DEPLOYMENT.md Phase 2 guide

@@ -11,7 +11,7 @@ All three phases of the SendCelo Roadmap have been successfully implemented, tes
 ### What's Included:
 - ✅ **Basic Payment Routing** - PaymentRouter service with fee calculation, batch processing
 - ✅ **Phone Address Resolution** - PhoneAddressingService with bidirectional mapping
-- ✅ **Testnet Deployment Config** - DeploymentConfigService with Alfajores support
+- ✅ **Testnet Deployment Config** - DeploymentConfigService with Celo Sepolia support
 
 ### Services:
 - `PaymentRouter` - Routes payments through Celo network
@@ -138,7 +138,7 @@ GET  /offices
 
 ### Phase 1: Testnet
 ```bash
-bash scripts/deploy.sh alfajores
+bash scripts/deploy.sh sepolia
 ```
 
 ### Phase 2: Mainnet
@@ -214,7 +214,7 @@ npm run type-check
 │ Celo Service        │  ← Blockchain interactions
 │ Exchange Rates      │  ← Real-time pricing
 ├─────────────────────┤
-│  Celo Blockchain    │  ← Layer 2 (Alfajores/Mainnet)
+│  Celo Blockchain    │  ← Layer 2 (Sepolia/Mainnet)
 └─────────────────────┘
 ```
 

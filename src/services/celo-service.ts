@@ -14,7 +14,7 @@ export class CeloService {
   private wallet: ethers.Wallet | null = null;
 
   private constructor() {
-    const rpcUrl = process.env.CELO_RPC_URL || 'https://alfajores-forno.celo-testnet.org';
+    const rpcUrl = process.env.CELO_RPC_URL || 'https://sepolia-forno.celo-testnet.org';
     this.provider = new ethers.JsonRpcProvider(rpcUrl);
     this.kit = newKit(rpcUrl);
   }

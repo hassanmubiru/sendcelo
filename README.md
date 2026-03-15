@@ -76,7 +76,7 @@ A Celo-powered agent that:
 
 - Node.js 18+ 
 - npm or yarn
-- Celo testnet RPC access (Alfajores)
+- Celo testnet RPC access (Celo Sepolia)
 - Private key for agent wallet (testnet)
 
 ### Installation
@@ -98,8 +98,8 @@ Create a `.env` file with:
 
 ```env
 # Network
-CELO_NETWORK=alfajores
-CELO_RPC_URL=https://alfajores-forno.celo-testnet.org
+CELO_NETWORK=sepolia
+CELO_RPC_URL=https://sepolia-forno.celo-testnet.org
 
 # Agent Wallet (use testnet key only)
 AGENT_PRIVATE_KEY=0x...
@@ -149,7 +149,7 @@ CMP_PRICE_API_URL=https://api.coingecko.com/api/v3
     ┌─────────────┐
     │ Celo Layer 2│
     │ Blockchain  │
-    │ (Alfajores) │
+    │ (Sepolia) │
     └─────────────┘
 ```
 
@@ -269,7 +269,7 @@ celo-remittance-agent/
 - Reverse lookup support
 
 ✅ **Testnet Deployment Configuration**
-- Alfajores testnet support
+- Celo Sepolia testnet support
 - Contract address configuration
 - Deployment checklist and validation
 

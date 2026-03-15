@@ -36,7 +36,7 @@ tests/              # Jest test suite
 
 ### Celo Integration
 - Use @celo/contractkit for blockchain interactions
-- All transactions target the configured CELO_NETWORK (default: alfajores testnet)
+- All transactions target the configured CELO_NETWORK (default: sepolia testnet)
 - Exchange rates queried from external APIs with fallback mechanisms
 - All currency values use Decimal.js for precision
 

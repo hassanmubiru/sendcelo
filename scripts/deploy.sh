@@ -5,7 +5,7 @@
 
 set -e
 
-NETWORK=${1:-alfajores}
+NETWORK=${1:-sepolia}
 ENVIRONMENT=${2:-testnet}
 
 echo "🚀 Starting SendCelo Deployment"

@@ -33,7 +33,7 @@ cUSD_ADDRESS=0x874069fa1eb16d44d622f2e0ca25eea172369bc1
 
 3. **Run deployment**
 ```bash
-bash scripts/deploy.sh alfajores
+bash scripts/deploy.sh sepolia
 npm start
 ```
 

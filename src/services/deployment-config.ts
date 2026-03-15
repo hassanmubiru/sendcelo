@@ -1,6 +1,6 @@
 import logger from '../utils/logger';
 
-export type Network = 'alfajores' | 'mainnet';
+export type Network = 'sepolia' | 'mainnet';
 
 interface DeploymentConfig {
   network: Network;
@@ -28,15 +28,15 @@ interface DeploymentStep {
  */
 export class DeploymentConfigService {
   private static instance: DeploymentConfigService;
-  private currentNetwork: Network = 'alfajores';
+  private currentNetwork: Network = 'sepolia';
   private deploymentHistory: DeploymentStep[] = [];
 
   private configs: Record<Network, DeploymentConfig> = {
-    alfajores: {
-      network: 'alfajores',
-      rpcUrl: 'https://alfajores-forno.celo-testnet.org',
+    sepolia: {
+      network: 'sepolia',
+      rpcUrl: 'https://sepolia-forno.celo-testnet.org',
       chainId: 44787,
-      explorerUrl: 'https://alfajores-blockscout.celo-testnet.org',
+      explorerUrl: 'https://sepolia-blockscout.celo-testnet.org',
       contracts: {
         cusdAddress: '0x874069fa1eb16d44d622f2e0ca25eea172369bc1',
         usdcAddress: '0x2a3684e9dc20b857375ea04235f2f7edbe816c29',
