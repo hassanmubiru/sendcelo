@@ -1,7 +1,6 @@
 import 'dotenv/config';
 import logger from './utils/logger';
 import RemittanceAgent from './agent';
-import Decimal from 'decimal.js';
 
 /**
  * SendCelo - Main application entry point

@@ -1,18 +1,19 @@
-import { ethers } from 'ethers';
-
 /**
- * Validates if a string is a valid Ethereum address
+ * Validates if a string is a valid Ethereum address (40 hex characters with 0x prefix)
  */
 export function isValidAddress(address: string): boolean {
-  return ethers.isAddress(address);
+  // Check if address is a valid Ethereum address format: 0x followed by 40 hex characters
+  const addressRegex = /^0x[0-9a-fA-F]{40}$/;
+  return addressRegex.test(address);
 }
 
 /**
  * Validates if a string is a valid phone number (E.164 format)
  * Examples: +256701234567, +1234567890
+ * E.164 requires 7-15 total digits (including country code)
  */
 export function isValidPhoneNumber(phone: string): boolean {
-  const e164Regex = /^\+[1-9]\d{1,14}$/;
+  const e164Regex = /^\+[1-9]\d{6,14}$/;
   return e164Regex.test(phone);
 }
 

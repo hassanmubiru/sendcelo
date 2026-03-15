@@ -5,7 +5,12 @@ describe('MicrofinanceService', () => {
   let service: MicrofinanceService;
 
   beforeEach(() => {
-    service = MicrofinanceService.getInstance();
+    // Create a fresh instance for each test by clearing the singleton
+    const serviceInstance = MicrofinanceService.getInstance();
+    // Access private properties through type assertion to clear them
+    (serviceInstance as any).loans.clear();
+    (serviceInstance as any).ubiPayments.clear();
+    service = serviceInstance;
   });
 
   test('should disburse a loan', async () => {

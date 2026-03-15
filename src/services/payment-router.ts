@@ -1,6 +1,6 @@
 import Decimal from 'decimal.js';
 import logger from '../utils/logger';
-import { isValidAddress, validateTransaction } from '../utils/validators';
+import { validateTransaction } from '../utils/validators';
 import { calculateFee, calculateNetAmount } from '../utils/conversions';
 import CeloService from './celo-service';
 import ExchangeRateService from './exchange-rate';
