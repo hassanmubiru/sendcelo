@@ -6,6 +6,11 @@ import YieldFarmingService from '../services/yield-farming';
 import PhoneAddressingService from '../services/phone-addressing';
 import MicrofinanceService from '../services/microfinance';
 import AgentscanService from '../services/agentscan';
+import DeploymentConfigService from '../services/deployment-config';
+import MicrofinanceUIService from '../services/microfinance-ui';
+import MultiCurrencyService from '../services/multi-currency';
+import RegionalOfficeService from '../services/regional-office';
+import MobileAppAPIService from '../services/mobile-app-api';
 
 /**
  * Remittance Agent - Main orchestrator for cross-border payments and micropayments
