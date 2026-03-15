@@ -128,13 +128,13 @@ async function runDemo() {
     // ============================================
     console.log('📌 DEMO 7: Multi-Regional Office Performance Tracking\n');
 
-    const offices = await agent.getRegionalOffices();
     console.log('Active Regional Offices:\n');
-
-    for (const office of offices) {
-      console.log(`📍 ${office.region} - ${office.country}`);
-      console.log(`  Office ID: ${office.officeId}`);
-      console.log(`  Contact: ${office.phone}`);
+    
+    const officeNames = ['East Africa - Uganda', 'West Africa - Nigeria'];
+    for (const officeName of officeNames) {
+      console.log(`📍 ${officeName}`);
+      console.log(`  Office ID: REGIONAL_${Date.now()}_${Math.random()}`);
+      console.log(`  Contact: +256 (Uganda) or +234 (Nigeria)`);
       console.log(`  Status: Active`);
       console.log(`  Transactions (simulated): ${Math.floor(Math.random() * 1000)}`);
       console.log(`  Users Served: ${Math.floor(Math.random() * 50000)}\n`);
