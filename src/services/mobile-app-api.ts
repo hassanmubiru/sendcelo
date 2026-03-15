@@ -25,17 +25,14 @@ interface MobileAppResponse<T> {
  */
 export class MobileAppAPIService {
   private static instance: MobileAppAPIService;
-  private agent: RemittanceAgent;
-  private microfinanceUI: MicrofinanceUIService;
-  private multiCurrency: MultiCurrencyService;
-  private regionalOffice: RegionalOfficeService;
+  private agent: RemittanceAgent | null = null;
+  private microfinanceUI: MicrofinanceUIService | null = null;
+  private multiCurrency: MultiCurrencyService | null = null;
+  private regionalOffice: RegionalOfficeService | null = null;
   private requestLog: Map<string, MobileAppRequest> = new Map();
 
   private constructor() {
-    this.agent = RemittanceAgent.getInstance();
-    this.microfinanceUI = MicrofinanceUIService.getInstance();
-    this.multiCurrency = MultiCurrencyService.getInstance();
-    this.regionalOffice = RegionalOfficeService.getInstance();
+    // Lazy-load dependencies to avoid circular references
   }
 
   static getInstance(): MobileAppAPIService {
@@ -43,6 +40,34 @@ export class MobileAppAPIService {
       this.instance = new MobileAppAPIService();
     }
     return this.instance;
+  }
+
+  private getAgent(): RemittanceAgent {
+    if (!this.agent) {
+      this.agent = RemittanceAgent.getInstance();
+    }
+    return this.agent;
+  }
+
+  private getMicrofinanceUI(): MicrofinanceUIService {
+    if (!this.microfinanceUI) {
+      this.microfinanceUI = MicrofinanceUIService.getInstance();
+    }
+    return this.microfinanceUI;
+  }
+
+  private getMultiCurrency(): MultiCurrencyService {
+    if (!this.multiCurrency) {
+      this.multiCurrency = MultiCurrencyService.getInstance();
+    }
+    return this.multiCurrency;
+  }
+
+  private getRegionalOffice(): RegionalOfficeService {
+    if (!this.regionalOffice) {
+      this.regionalOffice = RegionalOfficeService.getInstance();
+    }
+    return this.regionalOffice;
   }
 
   /**
@@ -71,8 +96,8 @@ export class MobileAppAPIService {
     requestId: string
   ): Promise<MobileAppResponse<{ rate: string; displayRate: string }>> {
     try {
-      const rate = await this.agent.getExchangeRate(from, to);
-      const displayRate = await this.multiCurrency.getDisplayRate(
+      const rate = await this.getAgent().getExchangeRate(from, to);
+      const displayRate = await this.getMultiCurrency().getDisplayRate(
         from as any,
         to as any
       );
@@ -109,7 +134,7 @@ export class MobileAppAPIService {
     requestId: string
   ): Promise<MobileAppResponse<{ transactionHash: string; amount: string; fee: string }>> {
     try {
-      const result = await this.agent.processRemittance({
+      const result = await this.getAgent().processRemittance({
         senderPhone: request.senderPhone,
         recipientPhone: request.recipientPhone,
         amount: request.amount,
@@ -142,7 +167,7 @@ export class MobileAppAPIService {
    */
   async getLoanDetails(loanId: string, requestId: string): Promise<MobileAppResponse<any>> {
     try {
-      const loan = this.microfinanceUI.viewLoan(loanId);
+      const loan = this.getMicrofinanceUI().viewLoan(loanId);
 
       if (!loan) {
         return {
@@ -174,7 +199,7 @@ export class MobileAppAPIService {
    */
   async getBorrowerLoans(phone: string, requestId: string): Promise<MobileAppResponse<any[]>> {
     try {
-      const loans = this.microfinanceUI.viewLoans(phone);
+      const loans = this.getMicrofinanceUI().viewLoans(phone);
 
       return {
         success: true,
@@ -197,7 +222,7 @@ export class MobileAppAPIService {
    */
   async getDashboard(requestId: string): Promise<MobileAppResponse<any>> {
     try {
-      const dashboard = this.microfinanceUI.getDashboardData();
+      const dashboard = this.getMicrofinanceUI().getDashboardData();
 
       return {
         success: true,
@@ -222,7 +247,7 @@ export class MobileAppAPIService {
     requestId: string
   ): Promise<MobileAppResponse<any[]>> {
     try {
-      const currencies = this.multiCurrency.getSupportedCurrencies().map((c) => ({
+      const currencies = this.getMultiCurrency().getSupportedCurrencies().map((c) => ({
         code: c.code,
         name: c.name,
         symbol: c.symbol,
@@ -252,7 +277,7 @@ export class MobileAppAPIService {
     requestId: string
   ): Promise<MobileAppResponse<any[]>> {
     try {
-      const corridors = this.multiCurrency.getRemittanceCorridors();
+      const corridors = this.getMultiCurrency().getRemittanceCorridors();
 
       return {
         success: true,
@@ -280,7 +305,7 @@ export class MobileAppAPIService {
     requestId: string
   ): Promise<MobileAppResponse<any>> {
     try {
-      const cost = await this.multiCurrency.calculateTransferCost(
+      const cost = await this.getMultiCurrency().calculateTransferCost(
         new Decimal(amount),
         from as any,
         to as any
@@ -312,7 +337,7 @@ export class MobileAppAPIService {
    */
   async getRegionalOffices(requestId: string): Promise<MobileAppResponse<any[]>> {
     try {
-      const offices = this.regionalOffice.getActiveOffices().map((o) => ({
+      const offices = this.getRegionalOffice().getActiveOffices().map((o) => ({
         officeId: o.officeId,
         name: o.name,
         region: o.region,
