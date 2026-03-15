@@ -22,6 +22,7 @@ export class YieldFarmingService {
   private static instance: YieldFarmingService;
   private positions: Map<string, YieldPosition> = new Map();
   private totalYieldEarned: Decimal = new Decimal(0);
+  private positionCounter: number = 0;
 
   private constructor() {}
 
@@ -48,7 +49,7 @@ export class YieldFarmingService {
       throw new Error('Deposit amount must be positive');
     }
 
-    const positionId = `${poolId}_${Date.now()}`;
+    const positionId = `${poolId}_${Date.now()}_${++this.positionCounter}`;
 
     const position: YieldPosition = {
       poolId,

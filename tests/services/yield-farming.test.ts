@@ -6,9 +6,10 @@ describe('YieldFarmingService', () => {
 
   beforeEach(() => {
     service = YieldFarmingService.getInstance();
-    // Clear positions between tests by accessing private property
+    // Clear positions and counter between tests by accessing private properties
     (service as any).positions.clear();
     (service as any).totalYieldEarned = new Decimal(0);
+    (service as any).positionCounter = 0;
   });
 
   test('should deposit to pool', async () => {
