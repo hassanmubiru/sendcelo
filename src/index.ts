@@ -13,37 +13,30 @@ async function main() {
     // Initialize agent
     logger.info('Getting RemittanceAgent instance...');
     const agent = RemittanceAgent.getInstance();
+    
     logger.info('Initializing agent...');
-    await agent.initialize();
-    logger.info('Agent initialized successfully!');
+    try {
+      await agent.initialize();
+      logger.info('Agent initialized successfully!');
+    } catch (initError) {
+      logger.warn({ error: initError }, 'Agent initialization warning (continuing anyway)');
+    }
 
-    // Example: Register phone numbers
-    logger.info('Registering phone addresses...');
-    await agent.registerPhoneNumber('+256701234567', '0x742d35Cc6634C0532925a3b844Bc9e7595f42bE5');
-    logger.info('Registered first phone number');
-    await agent.registerPhoneNumber('+256701234568', '0x8ba1f109551bD432803012645Ac136ddd64DBA72');
-    logger.info('Registered second phone number');
-
-    // Example: Get exchange rate
-    logger.info('Fetching exchange rates...');
-    const usdToUgx = await agent.getExchangeRate('USD', 'UGX');
-    logger.info({ rate: usdToUgx }, 'USD to UGX exchange rate');
-
-    // Example: Check status
-    const status = await agent.getStatus();
-    logger.info({ status }, 'Agent status');
-
-    // Example: Optimize idle funds
-    // Note: Requires actual funds to be present
-    // await agent.optimizeIdleFunds(1000);
-
-    logger.info('✓ Agent ready for operations');
+    logger.info('✓ SendCelo Agent is running');
 
     // Keep agent running
     process.on('SIGINT', () => {
       logger.info('Shutting down gracefully');
       process.exit(0);
     });
+
+    process.on('SIGTERM', () => {
+      logger.info('SIGTERM received, shutting down');
+      process.exit(0);
+    });
+
+    // Promise that never resolves to keep process alive
+    await new Promise(() => {});
   } catch (error) {
     if (error instanceof Error) {
       logger.error({ error: error.message, stack: error.stack }, 'Fatal error');
