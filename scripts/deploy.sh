@@ -57,14 +57,14 @@ echo -e "${YELLOW}===========================================${NC}"
 echo -e "${YELLOW}Deployment on $NETWORK ($ENVIRONMENT)${NC}"
 echo -e "${YELLOW}===========================================${NC}"
 
-if [ "$NETWORK" = "alfajores" ]; then
+if [ "$NETWORK" = "sepolia" ]; then
     echo -e "${BLUE}Testnet Deployment Checklist:${NC}"
     echo "1. Ensure AGENT_PRIVATE_KEY is set in .env (testnet key)"
     echo "2. Ensure AGENT_ADDRESS is configured in .env"
     echo "3. Fund agent wallet with testnet cUSD"
-    echo "4. Verify RPC URL: https://alfajores-forno.celo-testnet.org"
+    echo "4. Verify RPC URL: https://sepolia-forno.celo-testnet.org"
     echo ""
-    echo -e "${GREEN}Ready to deploy to Alfajores testnet!${NC}"
+    echo -e "${GREEN}Ready to deploy to Celo Sepolia testnet!${NC}"
     echo "Run: npm start"
 elif [ "$NETWORK" = "mainnet" ]; then
     echo -e "${YELLOW}⚠️  MAINNET DEPLOYMENT ⚠️${NC}"
