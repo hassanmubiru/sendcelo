@@ -40,7 +40,11 @@ async function main() {
       process.exit(0);
     });
   } catch (error) {
-    logger.error({ error }, 'Fatal error');
+    if (error instanceof Error) {
+      logger.error({ error: error.message, stack: error.stack }, 'Fatal error');
+    } else {
+      logger.error({ error: String(error) }, 'Fatal error');
+    }
     process.exit(1);
   }
 }
