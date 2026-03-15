@@ -11,13 +11,18 @@ async function main() {
     logger.info('🚀 Starting SendCelo - Cross-border remittance agent');
 
     // Initialize agent
+    logger.info('Getting RemittanceAgent instance...');
     const agent = RemittanceAgent.getInstance();
+    logger.info('Initializing agent...');
     await agent.initialize();
+    logger.info('Agent initialized successfully!');
 
     // Example: Register phone numbers
     logger.info('Registering phone addresses...');
     await agent.registerPhoneNumber('+256701234567', '0x742d35Cc6634C0532925a3b844Bc9e7595f42bE5');
+    logger.info('Registered first phone number');
     await agent.registerPhoneNumber('+256701234568', '0x8ba1f109551bD432803012645Ac136ddd64DBA72');
+    logger.info('Registered second phone number');
 
     // Example: Get exchange rate
     logger.info('Fetching exchange rates...');

@@ -10,13 +10,12 @@ import { toSmallestUnit } from '../utils/conversions';
 export class CeloService {
   private static instance: CeloService;
   private kit: any;
-  private provider: ethers.JsonRpcProvider;
+  private provider: ethers.JsonRpcProvider | null = null;
   private wallet: ethers.Wallet | null = null;
+  private isInitialized: boolean = false;
 
   private constructor() {
-    const rpcUrl = process.env.CELO_RPC_URL || 'https://sepolia-forno.celo-testnet.org';
-    this.provider = new ethers.JsonRpcProvider(rpcUrl);
-    this.kit = newKit(rpcUrl);
+    // Defer provider initialization to avoid blocking
   }
 
   static getInstance(): CeloService {
@@ -27,11 +26,27 @@ export class CeloService {
   }
 
   /**
+   * Initialize the provider (called on first use)
+   */
+  private ensureProvider(): void {
+    if (!this.isInitialized) {
+      const rpcUrl = process.env.CELO_RPC_URL || 'https://sepolia-forno.celo-testnet.org';
+      this.provider = new ethers.JsonRpcProvider(rpcUrl);
+      this.kit = newKit(rpcUrl);
+      this.isInitialized = true;
+    }
+  }
+
+  /**
    * Initialize wallet with private key
    */
   initializeWallet(privateKey: string): void {
+    this.ensureProvider();
     if (!privateKey) {
       throw new Error('Private key not configured in .env file');
+    }
+    if (!this.provider) {
+      throw new Error('Provider not initialized');
     }
     this.wallet = new ethers.Wallet(privateKey, this.provider);
     this.kit.connection.addAccount(privateKey);
@@ -111,6 +126,8 @@ export class CeloService {
    */
   async getGasPrice(): Promise<Decimal> {
     try {
+      this.ensureProvider();
+      if (!this.provider) throw new Error('Provider not initialized');
       const feeData = await this.provider.getFeeData();
       if (!feeData.gasPrice) {
         throw new Error('Unable to fetch gas price');
@@ -130,6 +147,8 @@ export class CeloService {
     stablecoinAddress: string
   ): Promise<Decimal> {
     try {
+      this.ensureProvider();
+      if (!this.provider) throw new Error('Provider not initialized');
       const erc20ABI = ['function transfer(address to, uint256 amount) public returns (bool)'];
       const contract = new ethers.Contract(stablecoinAddress, erc20ABI, this.provider);
 
@@ -145,6 +164,8 @@ export class CeloService {
    * Get provider for direct RPC calls
    */
   getProvider(): ethers.JsonRpcProvider {
+    this.ensureProvider();
+    if (!this.provider) throw new Error('Provider not initialized');
     return this.provider;
   }
 
