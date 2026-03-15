@@ -24,6 +24,11 @@ export class RemittanceAgent {
   private phoneAddressingService: PhoneAddressingService;
   private microfinanceService: MicrofinanceService;
   private agentscanService: AgentscanService;
+  private deploymentConfigService: DeploymentConfigService;
+  private microfinanceUIService: MicrofinanceUIService;
+  private multiCurrencyService: MultiCurrencyService;
+  private regionalOfficeService: RegionalOfficeService;
+  private mobileAppAPIService: MobileAppAPIService;
   private isInitialized: boolean = false;
 
   private constructor() {
@@ -34,6 +39,11 @@ export class RemittanceAgent {
     this.phoneAddressingService = PhoneAddressingService.getInstance();
     this.microfinanceService = MicrofinanceService.getInstance();
     this.agentscanService = AgentscanService.getInstance();
+    this.deploymentConfigService = DeploymentConfigService.getInstance();
+    this.microfinanceUIService = MicrofinanceUIService.getInstance();
+    this.multiCurrencyService = MultiCurrencyService.getInstance();
+    this.regionalOfficeService = RegionalOfficeService.getInstance();
+    this.mobileAppAPIService = MobileAppAPIService.getInstance();
   }
 
   static getInstance(): RemittanceAgent {
